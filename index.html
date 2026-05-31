@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>СТРОЙЛОГИСТИК — подготовка площадок и стройматериалы</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0f0f0f;
+            font-family: 'Inter', sans-serif;
+            color: #e5e7eb;
+            overflow-x: hidden;
+        }
+
+        /* ГЛАВНЫЙ КОНТЕЙНЕР — БЕЗ ОГРАНИЧЕНИЙ */
+        .fluid {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* ===== АНИМАЦИЯ ПРИ СКРОЛЛЕ ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== ХЕДЕР — БЕЗ СТАНДАРТНОГО МЕНЮ ===== */
+        .hero-scene {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem 5% 4rem;
+            background: linear-gradient(115deg, #0a0a0a 0%, #1c2a1f 100%);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 0% 100%);
+            margin-bottom: -2rem;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+        .logo-brut {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #e3c470, #c4a23d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .hero-title {
+            font-size: 5.5rem;
+            font-weight: 800;
+            line-height: 1;
+            max-width: 70%;
+            margin-bottom: 2rem;
+        }
+        .hero-title span {
+            color: #e3c470;
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            max-width: 45%;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+        .hero-stats-block {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        .stat-brut {
+            border-left: 3px solid #e3c470;
+            padding-left: 1rem;
+        }
+
+        /* ===== АСИММЕТРИЧНАЯ СЕТКА ОСНОВНЫХ НАПРАВЛЕНИЙ ===== */
+        .zag {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 4rem 0 2rem;
+            letter-spacing: -2px;
+        }
+        .mega-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr 1fr;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        .big-block {
+            background: #1a1f1a;
+            padding: 2rem;
+            border-radius: 2rem 0 2rem 0;
+            transition: 0.2s;
+        }
+        .big-block:hover {
+            background: #252d25;
+        }
+        .big-block i {
+            font-size: 3rem;
+            color: #e3c470;
+            margin-bottom: 1rem;
+        }
+        .okved-tag {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: #e3c470;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        /* ===== КАЛЬКУЛЯТОР ГРУНТА (НЕОБЫЧНЫЙ СЛАЙДЕР) ===== */
+        .calc-ground {
+            background: #111511;
+            padding: 3rem;
+            margin: 4rem 0;
+            border: 1px solid #e3c47030;
+            position: relative;
+        }
+        .calc-ground h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-end;
+        }
+        .slider-item {
+            flex: 1;
+        }
+        .slider-item label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        input[type="range"] {
+            width: 100%;
+            background: #2a332a;
+            height: 4px;
+            border-radius: 2px;
+        }
+        .calc-result {
+            background: #e3c470;
+            color: #0f0f0f;
+            padding: 1rem 2rem;
+            font-weight: 800;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        /* ===== БЛОК "ПОЧЕМУ МЫ" — МАССИВНЫЕ ЦИФРЫ ===== */
+        .why-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+            margin: 4rem 0;
+        }
+        .why-item {
+            flex: 1;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #e3c470;
+        }
+
+        /* ===== ТИКЕР (бегущая строка) ===== */
+        .ticker {
+            background: #e3c470;
+            color: #0f0f0f;
+            padding: 0.8rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 3rem 0;
+        }
+        .ticker span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll 20s linear infinite;
+            font-weight: 600;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* ===== РЕКВИЗИТЫ (ГРАФФИТИ-СТИЛЬ) ===== */
+        .graffiti-req {
+            background: #1a1a1a;
+            padding: 2rem;
+            margin: 3rem 0;
+            border-left: 8px solid #e3c470;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+
+        /* ===== ФОРМА (МИНИМАЛЬНЫЙ БЛОК) ===== */
+        .form-brutal {
+            background: #1a1a1a;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+        .form-brutal input, .form-brutal textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #0f0f0f;
+            border: 1px solid #2a2a2a;
+            color: white;
+        }
+        .form-brutal button {
+            background: #e3c470;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            font-weight: bold;
+            color: #0f0f0f;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        @media (max-width: 900px) {
+            .hero-title { font-size: 3rem; max-width: 100%; }
+            .hero-desc { max-width: 100%; }
+            .mega-grid { grid-template-columns: 1fr; }
+            .slider-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero-scene">
+    <div class="hero-nav">
+        <div class="logo-brut">СТРОЙЛОГИСТИК</div>
+        <div style="font-size:0.8rem;">строительная логистика & материалы</div>
+    </div>
+    <div>
+        <div class="hero-title">Подготовка <span>площадок</span><br>и стройматериалы</div>
+        <div class="hero-desc">ОКВЭД 43.12, 46.73.6, 46.90 — полный цикл от геодезии до поставки инертных материалов.</div>
+        <div class="hero-stats-block">
+            <div class="stat-brut"><span style="font-size:2rem; font-weight:800;">24/7</span><br>техника</div>
+        </div>
+    </div>
+</div>
+
+<div class="fluid">
+    <!-- Асимметричная сетка направлений -->
+    <div class="zag">Что мы делаем</div>
+    <div class="mega-grid reveal">
+        <div class="big-block"><i class="fas fa-draw-polygon"></i> <h3>Подготовка площадки</h3><p>Расчистка, планировка, геодезия, вертикальная разметка.</p><div class="okved-tag">ОКВЭД 43.12</div></div>
+        <div class="big-block"><i class="fas fa-truck"></i> <h3>Стройматериалы оптом</h3><p>Песок, щебень, бетон, арматура, плиты. Доставка день в день.</p><div class="okved-tag">46.73.6</div></div>
+        <div class="big-block"><i class="fas fa-dumpster"></i> <h3>Вывоз грунта</h3><p>Лицензированный вывоз, утилизация, подготовка котлованов.</p><div class="okved-tag">43.12 / 46.90</div></div>
+    </div>
+    <div class="mega-grid reveal">
+        <div class="big-block"><i class="fas fa-chart-line"></i> <h3>Геодезические работы</h3><p>Топосъёмка, разбивка осей, контроль вертикальной планировки.</p></div>
+        <div class="big-block"><i class="fas fa-tools"></i> <h3>Сопутствующие услуги</h3><p>Ограждение площадок, освещение, временные дороги.</p></div>
+    </div>
+
+    <!-- Калькулятор грунта (интерактивный) -->
+    <div class="calc-ground reveal">
+        <h3><i class="fas fa-calculator"></i> Калькулятор вывоза грунта</h3>
+        <div class="slider-container">
+            <div class="slider-item">
+                <label>Объём грунта (м³)</label>
+                <input type="range" id="soilVolume" min="10" max="500" step="10" value="100">
+                <span id="volumeValue">100 м³</span>
+            </div>
+            <div class="slider-item">
+                <label>Расстояние до полигона (км)</label>
+                <input type="range" id="distance" min="5" max="100" step="5" value="30">
+                <span id="distanceValue">30 км</span>
+            </div>
+            <div class="calc-result" id="soilPrice">
+                Ориентировочная стоимость: 0 ₽
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Бегущая строка (тикер) -->
+    <div class="ticker"><span>🔨 Скидка 10% на вывоз грунта при заказе от 200 м³ • Доставка песка и щебня за 24 часа • Геодезия в день обращения 🔨</span></div>
+
+    <!-- Реквизиты (граффити-стиль) -->
+    <div class="graffiti-req reveal">
+        <i class="fas fa-building"></i> <strong>ООО «Стройлогистик»</strong><br>
+        ИНН 5263124446 | КПП 526201001 | ОГРН 1165275019843 от 08.06.2016<br>
+        Уставный капитал 10 000 ₽ | г. Нижний Новгород, ул. Ошарская, 1/2, офис 1<br>
+        Основной ОКВЭД: 43.12 — Подготовка строительной площадки<br>
+        Доп. ОКВЭД: 46.73.6 (опт стройматериалов), 46.90 (неспециализированная оптовая торговля)
+    </div>
+
+    <!-- Форма (минималистичная, но с характером) -->
+    <div class="form-brutal reveal" id="contact">
+        <h3>📋 Рассчитать смету на работы или материалы</h3>
+        <form id="brutalForm">
+            <input type="text" id="brutalName" placeholder="Ваше имя / компания" required>
+            <input type="text" id="brutalContact" placeholder="Телефон или e-mail" required>
+            <textarea rows="2" id="brutalTask" placeholder="Например: вывоз 150м³ грунта, доставка 20т песка, геодезия участка"></textarea>
+            <button type="submit">Отправить заявку →</button>
+        </form>
+        <div id="brutalStatus" style="margin-top: 1rem; font-size:0.8rem;"></div>
+    </div>
+
+    <footer>
+        <p>© 2025 ООО «Стройлогистик» | ИНН 5263124446 | ОГРН 1165275019843 | Нижний Новгород</p>
+        <p>Подготовка площадок, оптовая торговля стройматериалами, неспециализированная оптовая торговля</p>
+    </footer>
+</div>
+
+<script>
+    // Калькулятор грунта
+    const volumeSlider = document.getElementById('soilVolume');
+    const distanceSlider = document.getElementById('distance');
+    const volumeSpan = document.getElementById('volumeValue');
+    const distanceSpan = document.getElementById('distanceValue');
+    const priceSpan = document.getElementById('soilPrice');
+
+    function updatePrice() {
+        let vol = parseInt(volumeSlider.value);
+        let dist = parseInt(distanceSlider.value);
+        let price = vol * 350 + dist * 250; // грубая формула
+        priceSpan.innerHTML = `Ориентировочная стоимость: ${price.toLocaleString()} ₽`;
+        volumeSpan.innerText = vol + ' м³';
+        distanceSpan.innerText = dist + ' км';
+    }
+    volumeSlider.addEventListener('input', updatePrice);
+    distanceSlider.addEventListener('input', updatePrice);
+    updatePrice();
+
+    // Форма
+    const formBrut = document.getElementById('brutalForm');
+    const statusBrut = document.getElementById('brutalStatus');
+    formBrut.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('brutalName').value.trim();
+        const contact = document.getElementById('brutalContact').value.trim();
+        if(!name || !contact) {
+            statusBrut.innerHTML = '❌ Заполните имя и контакт';
+            statusBrut.style.color = '#e3c470';
+            return;
+        }
+        statusBrut.innerHTML = '✅ Заявка принята! Менеджер свяжется в течение часа.';
+        statusBrut.style.color = '#e3c470';
+        formBrut.reset();
+        setTimeout(() => statusBrut.innerHTML = '', 4000);
+    });
+
+    // Анимация при скролле
+    const reveals = document.querySelectorAll('.reveal');
+    function checkReveal() {
+        reveals.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if(rect.top < window.innerHeight - 100) {
+                el.classList.add('active');
+            }
+        });
+    }
+    window.addEventListener('scroll', checkReveal);
+    checkReveal();
+</script>
+</body>
+</html>
