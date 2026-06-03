@@ -20,14 +20,12 @@
             overflow-x: hidden;
         }
 
-        /* ГЛАВНЫЙ КОНТЕЙНЕР — БЕЗ ОГРАНИЧЕНИЙ */
         .fluid {
             max-width: 1600px;
             margin: 0 auto;
             padding: 0 5%;
         }
 
-        /* ===== АНИМАЦИЯ ПРИ СКРОЛЛЕ ===== */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -38,7 +36,6 @@
             transform: translateY(0);
         }
 
-        /* ===== ХЕДЕР — БЕЗ СТАНДАРТНОГО МЕНЮ ===== */
         .hero-scene {
             min-height: 100vh;
             display: flex;
@@ -94,7 +91,6 @@
             padding-left: 1rem;
         }
 
-        /* ===== АСИММЕТРИЧНАЯ СЕТКА ОСНОВНЫХ НАПРАВЛЕНИЙ ===== */
         .zag {
             font-size: 3rem;
             font-weight: 800;
@@ -129,7 +125,6 @@
             display: inline-block;
         }
 
-        /* ===== КАЛЬКУЛЯТОР ГРУНТА (НЕОБЫЧНЫЙ СЛАЙДЕР) ===== */
         .calc-ground {
             background: #111511;
             padding: 3rem;
@@ -170,23 +165,6 @@
             text-align: center;
         }
 
-        /* ===== БЛОК "ПОЧЕМУ МЫ" — МАССИВНЫЕ ЦИФРЫ ===== */
-        .why-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: space-between;
-            margin: 4rem 0;
-        }
-        .why-item {
-            flex: 1;
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 800;
-            color: #e3c470;
-        }
-
-        /* ===== ТИКЕР (бегущая строка) ===== */
         .ticker {
             background: #e3c470;
             color: #0f0f0f;
@@ -206,7 +184,6 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* ===== РЕКВИЗИТЫ (ГРАФФИТИ-СТИЛЬ) ===== */
         .graffiti-req {
             background: #1a1a1a;
             padding: 2rem;
@@ -214,30 +191,6 @@
             border-left: 8px solid #e3c470;
             font-family: monospace;
             font-size: 0.8rem;
-        }
-
-        /* ===== ФОРМА (МИНИМАЛЬНЫЙ БЛОК) ===== */
-        .form-brutal {
-            background: #1a1a1a;
-            padding: 2rem;
-            margin: 3rem 0;
-        }
-        .form-brutal input, .form-brutal textarea {
-            width: 100%;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            background: #0f0f0f;
-            border: 1px solid #2a2a2a;
-            color: white;
-        }
-        .form-brutal button {
-            background: #e3c470;
-            border: none;
-            padding: 1rem;
-            width: 100%;
-            font-weight: bold;
-            color: #0f0f0f;
-            cursor: pointer;
         }
 
         footer {
@@ -271,7 +224,6 @@
 </div>
 
 <div class="fluid">
-    <!-- Асимметричная сетка направлений -->
     <div class="zag">Что мы делаем</div>
     <div class="mega-grid reveal">
         <div class="big-block"><i class="fas fa-draw-polygon"></i> <h3>Подготовка площадки</h3><p>Расчистка, планировка, геодезия, вертикальная разметка.</p><div class="okved-tag">ОКВЭД 43.12</div></div>
@@ -283,7 +235,6 @@
         <div class="big-block"><i class="fas fa-tools"></i> <h3>Сопутствующие услуги</h3><p>Ограждение площадок, освещение, временные дороги.</p></div>
     </div>
 
-    <!-- Калькулятор грунта (интерактивный) -->
     <div class="calc-ground reveal">
         <h3><i class="fas fa-calculator"></i> Калькулятор вывоза грунта</h3>
         <div class="slider-container">
@@ -303,11 +254,8 @@
         </div>
     </div>
 
-
-    <!-- Бегущая строка (тикер) -->
     <div class="ticker"><span>🔨 Скидка 10% на вывоз грунта при заказе от 200 м³ • Доставка песка и щебня за 24 часа • Геодезия в день обращения 🔨</span></div>
 
-    <!-- Реквизиты (граффити-стиль) -->
     <div class="graffiti-req reveal">
         <i class="fas fa-building"></i> <strong>ООО «Стройлогистик»</strong><br>
         ИНН 5263124446 | КПП 526201001 | ОГРН 1165275019843 от 08.06.2016<br>
@@ -323,7 +271,6 @@
 </div>
 
 <script>
-    // Калькулятор грунта
     const volumeSlider = document.getElementById('soilVolume');
     const distanceSlider = document.getElementById('distance');
     const volumeSpan = document.getElementById('volumeValue');
@@ -333,7 +280,7 @@
     function updatePrice() {
         let vol = parseInt(volumeSlider.value);
         let dist = parseInt(distanceSlider.value);
-        let price = vol * 350 + dist * 250; // грубая формула
+        let price = vol * 350 + dist * 250;
         priceSpan.innerHTML = `Ориентировочная стоимость: ${price.toLocaleString()} ₽`;
         volumeSpan.innerText = vol + ' м³';
         distanceSpan.innerText = dist + ' км';
@@ -342,25 +289,6 @@
     distanceSlider.addEventListener('input', updatePrice);
     updatePrice();
 
-    // Форма
-    const formBrut = document.getElementById('brutalForm');
-    const statusBrut = document.getElementById('brutalStatus');
-    formBrut.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('brutalName').value.trim();
-        const contact = document.getElementById('brutalContact').value.trim();
-        if(!name || !contact) {
-            statusBrut.innerHTML = '❌ Заполните имя и контакт';
-            statusBrut.style.color = '#e3c470';
-            return;
-        }
-        statusBrut.innerHTML = '✅ Заявка принята! Менеджер свяжется в течение часа.';
-        statusBrut.style.color = '#e3c470';
-        formBrut.reset();
-        setTimeout(() => statusBrut.innerHTML = '', 4000);
-    });
-
-    // Анимация при скролле
     const reveals = document.querySelectorAll('.reveal');
     function checkReveal() {
         reveals.forEach(el => {
